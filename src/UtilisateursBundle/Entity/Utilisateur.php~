@@ -1,0 +1,47 @@
+<?php
+
+namespace UtilisateursBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+
+/**
+ * Utilisateur
+ *
+ * @ORM\Table(name="utilisateur")
+ * @ORM\Entity(repositoryClass="UtilisateursBundle\Repository\UtilisateurRepository")
+ */
+class Utilisateur extends BaseUser
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->commandes = new ArrayCollection();
+        $this->adresses = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="EcommerceBundle\Entity\Commandes", mappedBy="utilisateur", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $commandes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="EcommerceBundle\Entity\Adresses", mappedBy="utilisateur", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $adresses;
+}
+

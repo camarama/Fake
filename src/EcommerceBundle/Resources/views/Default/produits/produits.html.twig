@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}Accueil{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div id="sidebar" class="span3">
+
+                {% include '::modules/navigation.html.twig' %}
+
+                {% include '::modules/userconnecte.html.twig' %}
+
+                    {% include '::modules/promo.html.twig' %}
+
+                    {% include '::modules/possibilite_paiements.html.twig' %}
+            </div>
+            <div class="span9">
+                <div class="well well-small">
+                    <h3 style="margin-left: 20px">Produits </h3>
+                        <div class="row-fluid">
+                            {% if produits|length != 0 %}
+                            <ul class="thumbnails">
+                                {% for produit in produits %}
+                                    <li class="span4">
+                                        <div class="thumbnail">
+                                            <a href="#" class="overlay"></a>
+                                            <a class="zoomTool" href="{{ path('ecommerce_produits_produitdetail', {'id' : produit.id}) }}" title="ajouter">
+                                                <span class="icon-search"></span> DETAIL
+                                            </a>
+                                            <a href="{{ path('ecommerce_produits_produitdetail', {'id' : produit.id}) }}">
+                                                <img src="{{ asset(produit.image.AssetPath) }}" alt="{{ produit.image.name }}" width="250" height="150">
+                                            </a>
+                                            <div class="caption cntr">
+                                                <p>{{ produit.nom }}</p>
+                                                <p><strong> {{ produit.prix|tva(produit.tva.multiplicate) }} €</strong></p>
+                                                {% if panier[produit.id] is not defined %}
+                                                    <h5>
+                                                        <a class="shopBtn" href="{{ path('ecommerce_panier_ajout', {'id' : produit.id}) }}" title="ajouter"> Ajouter au Panier </a>
+                                                    </h5>
+                                                    <div class="actionList">
+                                                        <a class="pull-left" href="{{ path('ecommerce_panier_ajout', {'id' : produit.id}) }}">Réserver </a>
+                                                        <a class="pull-left" href="{{ path('ecommerce_panier_panier') }}"> Voir mon Panier </a>
+                                                    </div>
+                                                {% endif %}
+                                                <br class="clr">
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                                <div class="alert alert-danger" role="alert">Oups! Le produit que vous recherchez n'existe pas...</div>
+                            {% endif %}
+                        </div>
+                </div>
+                {# display navigation #}
+                <div class="navigation">
+                    {{ knp_pagination_render(produits) }}
+                </div>
+            </div>
+        </div>
+        {% include '::modules/clients.html.twig' %}
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    grille des produits
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row-fluid">
+            <ul class="thumbnails">
+                {% for produit in produits %}
+                <li class="span4">
+                    <div class="thumbnail">
+                        <a href="{{ path('ecommerce_produits_produitdetail', {'id' : produit.id}) }}" class="overlay"></a>
+                        <a class="zoomTool" href="{{ path('ecommerce_produits_produitdetail', {'id' : produit.id}) }}" title="add to cart">
+                            <span class="icon-search"></span> DETAIL
+                        </a>
+                        <a href="{{ path('ecommerce_produits_produitdetail', {'id' : produit.id}) }}">
+                            <img src="{{ asset(produit.image.AssetPath) }}" alt="{{ produit.image.name }}" width="350" height="250">
+                        </a>
+                        <div class="caption cntr">
+                            <p>{{ produit.nom }}</p>
+                            <p><strong> {{ produit.prix|tva(produit.tva.multiplicate) }} €</strong></p>
+                            <h4><a class="shopBtn" href="{{ path('ecommerce_panier_ajout', {'id' : produit.id}) }}" title="add to cart"> Ajouter </a></h4>
+                            <div class="actionList">
+                                <a class="pull-left" href="{{ path('ecommerce_panier_ajout', {'id' : produit.id}) }}">Réserver </a>
+                                <a class="pull-left" href="#"> Comparer </a>
+                            </div>
+                            <br class="clr">
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(produits) }}
+            </div>
+        </div>
+        {% include '::modules/clients.html.twig' %}
+    </div>
+
+{% endblock %}

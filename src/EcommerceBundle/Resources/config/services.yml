@@ -1,0 +1,27 @@
+services:
+    setNewFacture:
+      class: EcommerceBundle\Services\GetFacture
+      arguments:
+        - "@service_container"
+
+    ajoutReference:
+      class: EcommerceBundle\Services\GetReference
+      arguments:
+        - "@security.token_storage"
+        - "@doctrine.orm.entity_manager"
+
+    tva:
+      class: EcommerceBundle\Twig\Extension\TvaExtension
+      tags:
+        - { name: twig.extension }
+
+    redirectionListener:
+      class: EcommerceBundle\EvenementListener\RedirectionListener
+
+      arguments:
+        - "@security.token_storage"
+        - "@router"
+        - "@session"
+
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

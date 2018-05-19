@@ -1,0 +1,35 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div class="row">
+        <div class="span4">
+            <div class="well well-small">
+                <ul class="nav nav-list">
+                    <li><a href="{{ path('fos_user_profile_edit') }}">Editer mes informations</a></li>
+                    <li><a href="products.html">Mes commandes</a></li>
+                    <li><a href="products.html">Changer mon mot de passe</a></li>
+                    <li><a href="products.html">Deconnexion</a></li>
+                    {#<li style="border:0"> &nbsp;</li>
+                    <li> <a class="totalInCart" href="cart.html"><strong>Total Amount  <span class="badge badge-warning pull-right" style="line-height:18px;">$448.42</span></strong></a></li>#}
+                </ul>
+            </div>
+        </div>
+
+        <div class="span8">
+            <ul class="breadcrumb">
+                <li><a href="{{ path('ecommerce_produits_index') }}">Home</a> <span class="divider">/</span></li>
+                <li class="active">Profil</li>
+            </ul>
+            <div class="alert alert-info" role="alert">
+                <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+                {% if targetUrl %}
+                    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock fos_user_content %}

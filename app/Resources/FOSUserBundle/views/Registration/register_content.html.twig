@@ -1,0 +1,33 @@
+{% trans_default_domain 'FOSUserBundle' %}
+    <div class="row">
+        <div id="sidebar" class="span3">
+        {% include '::modules/navigation.html.twig' %}
+
+        {% include '::modules/promo.html.twig' %}
+
+        {% include '::modules/possibilite_paiements.html.twig' %}
+        </div>
+        <div class="span9">
+            <ul class="breadcrumb">
+                <li><a href="{{ path('ecommerce_produits_index') }}">Home</a> <span class="divider">/</span></li>
+                <li class="active">Registration</li>
+            </ul>
+            <h3> Registration</h3>
+            <hr class="soft"/>
+            <div class="well text-center">
+                {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+                {{ form_widget(form) }}
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="submit" class="exclusive shopBtn" value="{{ 'registration.submit'|trans }}" />
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+
+
+
+

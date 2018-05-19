@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ page.titre }} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <hr class="soften">
+        <div>
+            <h1>{{ page.titre }}</h1>
+        </div>
+        <hr class="soften">
+        {{ page.contenu|raw}}
+        {% include '::modules/clients.html.twig' %}
+    </div>
+{% endblock %}

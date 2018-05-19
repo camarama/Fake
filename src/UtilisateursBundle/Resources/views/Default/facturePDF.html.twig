@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"/>
+        <meta charset="utf-8">
+        <title>Facture FakèDesign</title>
+        <link rel="stylesheet" href="./assets/css/style.css" type="text/css"/>
+    </head>
+    <body>
+        <div>
+            <div class="header">
+                <div id="logo">
+                    <img src="./assets/img/logo.png">
+                </div>
+                <div id="company" class="text-right">
+                    <h2 class="name">FakèDesign</h2>
+                    <div>Adresse</div>
+                    <div>téléphone</div>
+                    <div><a href="mailto:company@example.com">company@example.com</a></div>
+                </div>
+            </div>
+        </div>
+        <div id="details">
+            <div id="client">
+                <div class="to">Adresse de Facturation</div>
+                <h2 class="name">{{ facture.commande.facturation.prenom }} {{ facture.commande.facturation.nom }}</h2>
+                <div class="address">{{ facture.commande.facturation.numeroRue}} {{ facture.commande.facturation.adresse}} <br>
+                    {{ facture.commande.facturation.cp}} {{ facture.commande.facturation.ville}}</div>
+            </div>
+            <br><br>
+            <div id="client">
+                <div class="to">Adresse de Livraison</div>
+                <h2 class="name">{{ facture.commande.livraison.prenom }} {{ facture.commande.livraison.nom }}</h2>
+                <div class="address">{{ facture.commande.livraison.numeroRue}} {{ facture.commande.livraison.adresse}} <br>
+                    {{ facture.commande.livraison.cp}} {{ facture.commande.livraison.ville}}</div>
+            </div>
+            <div id="invoice">
+                <h1>Facture : {{ facture.reference }}</h1>
+                <div class="date">
+                    Date de la facture : {{ facture.date|date('d-m-Y') }}
+                </div>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="desc">DESIGNATION</th>
+                    <th class="">TAILLE</th>
+                    <th class="unit">PRIX</th>
+                    <th class="qty">QUANTITE</th>
+                    <th class="total">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produit in facture.commande.produit %}
+                <tr>
+                    <td class="desc">
+                        <h3>{{ produit.reference }}</h3>
+                    </td>
+                    <td></td>
+                    <td class="unit">{{ produit.prixTTC }} €</td>
+                    <td class="qty">{{ produit.quantite }}</td>
+                    <td class="total">{{ produit.prixTTC * produit.quantite }} €</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2">TOTAL </td>
+                    <td>{{ facture.commande.prixTTC }} €</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="footer">
+            Invoice was created on a computer and is valid without the signature and seal.
+        </div>
+    </body>
+</html>

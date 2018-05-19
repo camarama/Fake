@@ -1,0 +1,22 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="row">
+    <div class="span5">
+        <div class="well well-small">
+            <h4>Réinitialisation de votre mot de passe</h4>
+            <br>
+            <p>Saisissez votre nouveau mot de passe pour profiter pleinement de votre compte et
+                passer vos commandes en toute tranquilité</p>
+        </div>
+    </div>
+    <div class="span4">
+        <div class="well">
+            {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+            {{ form_widget(form) }}
+            <div>
+                <input type="submit" class="shopBtn" value="{{ 'resetting.reset.submit'|trans }}" />
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

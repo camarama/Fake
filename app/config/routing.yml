@@ -1,0 +1,41 @@
+utilisateurs_utilisateur:
+    resource: "@UtilisateursBundle/Controller/UtilisateurController.php"
+    type:     annotation
+
+ecommerce_commandes:
+    resource: "@EcommerceBundle/Controller/CommandesController.php"
+    type:     annotation
+
+ecommerce_categories:
+    resource: "@EcommerceBundle/Controller/CategoriesController.php"
+    type:     annotation
+
+ecommerce_produits:
+    resource: "@EcommerceBundle/Controller/ProduitsController.php"
+    type:     annotation
+
+pages_pages:
+    resource: "@PagesBundle/Controller/PagesController.php"
+    type:     annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+utilisateurs:
+    resource: "@UtilisateursBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+pages:
+    resource: "@PagesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+ecommerce:
+    resource: "@EcommerceBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

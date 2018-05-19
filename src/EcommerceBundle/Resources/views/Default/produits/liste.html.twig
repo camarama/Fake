@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    liste des produits
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div id="sidebar" class="span3">
+
+                {% include '::modules/navigation.html.twig' %}
+
+                {% include '::modules/userconnecte.html.twig' %}
+
+                {% include '::modules/promo.html.twig' %}
+
+                {% include '::modules/possibilite_paiements.html.twig' %}
+            </div>
+
+            <div class="span9">
+                <div class="well well-small">
+                    {% for produit in produits %}
+                        <div class="row-fluid">
+                            <div class="span2" style="margin-left: 0px">
+                                <img src="{{ asset(produit.image.AssetPath) }}" alt="{{ produit.image.name }}" style="width: 90px; height: 130px">
+                            </div>
+                            <div class="span6" style="margin-left: 0px; margin-right: 10px">
+                                <h5>{{ produit.nom }} </h5>
+                                <p>
+                                    {{ produit.description }}
+                                </p>
+                            </div>
+                            <div class="span4 alignR" style="margin-left: 0px">
+                                <form class="form-horizontal qtyFrm">
+                                    <h3> {{ produit.prix|tva(produit.tva.multiplicate) }} €</h3>
+                                    <label class="checkbox">
+                                        <input type="checkbox">  Comparer ce produit
+                                    </label><br>
+                                    <div class="btn-group">
+                                        <a href="{{ path('ecommerce_panier_ajout', {'id' : produit.id}) }}" class="defaultBtn"><span class=" icon-shopping-cart"></span> Ajouter</a>
+                                        <a href="{{ path('ecommerce_produits_produitdetail', {'id' : produit.id}) }}" class="shopBtn">VUE</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <hr class="soften">
+                    {% endfor %}
+                </div>
+                {# display navigation #}
+                <div class="navigation">
+                    {{ knp_pagination_render(produits) }}
+                </div>
+            </div>
+        </div>
+        {% include '::modules/clients.html.twig' %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}{{ produit.nom }}{% endblock %}
+{% block description  %}{{ produit.description }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div id="sidebar" class="span3">
+
+                {% include '::modules/navigation.html.twig' %}
+
+                {% include '::modules/userconnecte.html.twig' %}
+
+                {% include '::modules/promo.html.twig' %}
+
+                {% include '::modules/possibilite_paiements.html.twig' %}
+            </div>
+
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href="{{ path('ecommerce_produits_index') }}">Accueil</a> <span class="divider">/</span></li>
+                    <li><a href="{{ path('ecommerce_produits_index') }}">Produits</a> <span class="divider">/</span></li>
+                    <li class="active">Détail</li>
+                </ul>
+                <div class="well well-small">
+                    <div class="row-fluid">
+                        <div class="span5">
+                            <div id="myCarousel" class="carousel slide cntr">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <a href="#"> <img src="{{ asset(produit.image.AssetPath) }}" alt="{{ produit.image.name }}" style="width:100%"></a>
+                                    </div>
+                                    <div class="item">
+                                        <a href="#"> <img src="{{ asset(produit.image.AssetPath) }}" alt="{{ produit.image.name }}" style="width:100%"></a>
+                                    </div>
+                                    <div class="item">
+                                        <a href="#"> <img src="{{ asset(produit.image.AssetPath) }}" alt="{{ produit.image.name }}" style="width:100%"></a>
+                                    </div>
+                                </div>
+                                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <h3>{{ produit.nom }} {{ produit.prix|tva(produit.tva.multiplicate) }} €</h3>
+                            <hr class="soft"/>
+
+
+                                <div class="control-group">
+                                    <div class="form-horizontal qtyFrm">
+                                        <label class="control-label"><span>Taille</span></label>
+                                        <div class="controls">
+                                            <select name="taille" class="span5">
+                                                <option></option>
+                                                <option>XXL</option>
+                                                <option>XL</option>
+                                                <option>L</option>
+                                                <option>M</option>
+                                                <option>S</option>
+                                            </select>
+                                        </div>
+                                    </div><br>
+                                    <h4>Il reste {{ produit.disponible }} article disponible</h4>
+                                    <p>{{ produit.description }}</p>
+
+                                    <form class="form-horizontal qtyFrm" action="{{ path('ecommerce_panier_ajout', {'id' : produit.id}) }}" method="get">
+                                        <label class="control-label"><span>Quantité</span></label>
+                                        <div class="controls">
+                                            <select name="qte" class="span5">
+                                                {% for i in 1..10 %}
+                                                    <option value="{{ i }}">
+                                                        {{ i }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div><br>
+                                    {% if panier[produit.id] is not defined %}
+                                        <button class="shopBtn"><span class=" icon-shopping-cart"></span> Ajouter au Panier</button>
+                                    {% else %}
+                                        <a class="shopBtn" href="{{ path('ecommerce_panier_panier') }}"> Le produit est déjà dans votre panier</a>
+                                    {% endif %}
+                                    </form>
+                                </div>
+
+
+                        </div>
+                    </div>
+                    <hr class="softn clr"/>
+
+                    <ul id="productDetail" class="nav nav-tabs">
+                        <li class="active"><a href="#home" data-toggle="tab">Product Details</a></li>
+                        <li class=""><a href="#profile" data-toggle="tab">Related Products </a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Acceseries <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#cat1" data-toggle="tab">Category one</a></li>
+                                <li><a href="#cat2" data-toggle="tab">Category two</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content tabWrapper">
+                        <div class="tab-pane fade active in" id="home">
+                            <h4>Product Information</h4>
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr class="techSpecRow"><td class="techSpecTD1">Color:</td><td class="techSpecTD2">Black</td></tr>
+                                <tr class="techSpecRow"><td class="techSpecTD1">Style:</td><td class="techSpecTD2">Apparel,Sports</td></tr>
+                                <tr class="techSpecRow"><td class="techSpecTD1">Season:</td><td class="techSpecTD2">spring/summer</td></tr>
+                                <tr class="techSpecRow"><td class="techSpecTD1">Usage:</td><td class="techSpecTD2">fitness</td></tr>
+                                <tr class="techSpecRow"><td class="techSpecTD1">Sport:</td><td class="techSpecTD2">122855031</td></tr>
+                                <tr class="techSpecRow"><td class="techSpecTD1">Brand:</td><td class="techSpecTD2">Shock Absorber</td></tr>
+                                </tbody>
+                            </table>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                        </div>
+                        <div class="tab-pane fade" id="profile">
+                            {% for i in 0..4 %}
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <img src="assets/img/d.jpg" alt="">
+                                </div>
+                                <div class="span6">
+                                    <h5>Product Name </h5>
+                                    <p>
+                                        Nowadays the lingerie industry is one of the most successful business spheres.
+                                        We always stay in touch with the latest fashion tendencies -
+                                        that is why our goods are so popular..
+                                    </p>
+                                </div>
+                                <div class="span4 alignR">
+                                    <form class="form-horizontal qtyFrm">
+                                        <h3> $140.00</h3>
+                                        <label class="checkbox">
+                                            <input type="checkbox">  Adds product to compair
+                                        </label><br>
+                                        <div class="btn-group">
+                                            <a href="product_details.html" class="defaultBtn"><span class=" icon-shopping-cart"></span> Add to cart</a>
+                                            <a href="product_details.html" class="shopBtn">VIEW</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <hr class="soft">
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include '::modules/clients.html.twig' %}
+    </div>
+{% endblock %}

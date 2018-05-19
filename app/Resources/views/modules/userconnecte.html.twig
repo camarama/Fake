@@ -1,0 +1,13 @@
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="well well-small">
+        <ul class="nav nav-list">
+            <li><a href="{{ path('fos_user_profile_edit') }}">Editer mes informations</a></li>
+            <li><a href="products.html">Mes commandes</a></li>
+            <li><a href="{{ path('utilisateurs_utilisateur_facture') }}">Mes factures</a></li>
+            <li><a href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a></li>
+            <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+            {#<li style="border:0"> &nbsp;</li>
+            <li> <a class="totalInCart" href="cart.html"><strong>Total Amount  <span class="badge badge-warning pull-right" style="line-height:18px;">$448.42</span></strong></a></li>#}
+        </ul>
+    </div>
+{% endif %}

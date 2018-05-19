@@ -1,0 +1,19 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="row">
+    <div class="span3">
+        {% include '::modules/userconnecte.html.twig' %}
+    </div>
+
+    <div class="span9">
+        <ul class="breadcrumb">
+            <li><a href="{{ path('ecommerce_produits_index') }}">Home</a> <span class="divider">/</span></li>
+            <li class="active">Profil</li>
+        </ul>
+        <hr class="soft"/>
+        <div class="well fos_user_user_show">
+            <h4 class="text-center">Bienvenue {{ user.username }}</h4>
+            <hr class="soft"/>
+
+        </div>
+    </div>
+</div>

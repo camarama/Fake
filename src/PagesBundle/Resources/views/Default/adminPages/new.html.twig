@@ -1,0 +1,19 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+    <div class="box-header with-border">
+        <h1 class="box-title">Création d'une page</h1>
+    </div>
+    <div class="box-body">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+        <br>
+            <input class="btn btn-success col-md-4 col-md-offset-4" type="submit" value="Créer" />
+
+        {{ form_end(form) }}
+    </div>
+    <br><br>
+    <div class="box-footer">
+        <a class="btn btn-primary" href="{{ path('admin/Pages_index') }}">Retour à la liste</a>
+    </div>
+{% endblock %}

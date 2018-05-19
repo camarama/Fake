@@ -1,0 +1,79 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    page de livraison
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <!--
+Body Section
+-->
+        <div class="row">
+            <div class="span12">
+                <ul class="breadcrumb">
+                    <li><a href="{{ path('ecommerce_produits_index') }}">Home</a> <span class="divider">/</span></li>
+                    <li><a href="{{ path('ecommerce_panier_panier') }}">Panier</a> <span class="divider">/</span></li>
+                    <li class="active">Livraison</li>
+                </ul>
+                <div class="well well-small table-responsive">
+                    {% for label, messages in app.flashes(['danger', 'success', 'warning']) %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }}" style="text-align: center">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    <h2 style="padding-left: 35px"> Livraison</h2>
+                    <div id="collapseOne" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="span4">
+                                <h4>Ajouter une nouvelle adresse</h4>
+                                <form action="{{ path('ecommerce_panier_livraison') }}" method="POST">
+                                    {{ form_widget(form) }}
+                                    <br>
+                                    <button class="shopBtn" type="submit">Ajouter</button>
+                                </form>
+                            </div>
+                            <div class="span4 offset2">
+                                {% if utilisateur.adresses|length != 0 %}
+                                    <form action="{{ path('ecommerce_panier_validation') }}" method="POST">
+                                        <h4>Adresse de livraison</h4>
+                                        {% for adresse in utilisateur.adresses %}
+                                            <label class="radio">
+                                                <input type="radio" name="livraison" value="{{ adresse.id }}" {% if loop.index0 == 0 %}checked="checked" {% endif %}>
+                                                    {{ adresse.prenom }} {{ adresse.nom }}<br>
+                                                    {{ adresse.numeroRue }} {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }}
+                                                    <a href="{{ path('ecommerce_panier_adressesuppression', {'id' : adresse.id}) }}"><i class="icon-trash" style="color: #f89406"></i></a>
+                                            </label>
+                                        {% endfor %}
+                                        <br /><br />
+                                        <h4>Adresse de facturation</h4>
+                                        {% for adresse in utilisateur.adresses %}
+                                            <label class="radio">
+                                                <input type="radio" name="facturation" value="{{ adresse.id }}" {% if loop.index0 == 0 %}checked="checked" {% endif %}>
+                                                {{ adresse.prenom }} {{ adresse.nom }}<br>
+                                                {{ adresse.numeroRue }} {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }}
+                                                <a href="{{ path('ecommerce_panier_adressesuppression', {'id' : adresse.id}) }}"><i class="icon-trash" style="color: #f89406"></i></a>
+                                            </label>
+                                        {% endfor %}
+                                        <br><br>
+                                        <button class="shopBtn" type="submit">Valider mes adresses <span class="icon-arrow-right"></span></button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    {#<a href="{{ path('ecommerce_panier_validation') }}" class="shopBtn btn-large pull-right">Continuer <span class="icon-arrow-right"></span></a>#}
+                    <a href="{{ path('ecommerce_panier_panier') }}" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Retour au Panier </a>
+
+
+                </div>
+            </div>
+        </div>
+       {% include '::modules/clients.html.twig' %}
+    </div>
+
+{% endblock %}

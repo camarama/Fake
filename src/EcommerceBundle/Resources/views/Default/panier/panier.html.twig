@@ -1,0 +1,89 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}
+    page de panier
+{% endblock %}
+
+{% set totalTTC = 0 %}
+
+{% block body %}
+
+    <div class="container">
+        <!--
+Body Section
+-->
+        <div class="row">
+            <div class="span12">
+                <ul class="breadcrumb">
+                    <li><a href="{{ path('ecommerce_produits_index') }}">Home</a> <span class="divider">/</span></li>
+                    <li class="active">Panier</li>
+                </ul>
+                <div class="well well-small table-responsive">
+                    {% for label, messages in app.flashes(['danger', 'success']) %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }}" style="text-align: center">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {{ render(controller('EcommerceBundle:Panier:menu')) }}
+                        <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Article</th>
+                            <th>Description</th>
+                            <th>Ref. </th>
+                            <th>Prix </th>
+                            <th>Quantité </th>
+                            <th>Total </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if produits|length == 0 %}
+                            <tr>
+                                <td colspan="6" style="text-align: center; background-color: #faa732"> Aucun article dans votre panier</td>
+                            </tr>
+                            {% endif %}
+                        {% for produit in produits %}
+                            <form action="{{ path('ecommerce_panier_ajout', { 'id' : produit.id })  }}" method="get">
+                                <tr>
+                                    <td class="span1"><img class="img-circle" width="100px" src="{{ produit.image.path }}" alt=""></td>
+                                    <td class="span4">{{ produit.nom }}<br>{{ produit.description }}</td>
+                                    <td class="span1"> - </td>
+                                    <td class="span2">{{ produit.prix |tva(produit.tva.multiplicate) }} €</td>
+                                    <td class="span2">
+                                        <select style="display: inline-table" name="qte" class="span1" onchange="this.form.submit()">
+                                            {% for i in 1..10 %}
+                                                <option value="{{ i }}" {% if i == panier[produit.id] %} selected="selected " {% endif %}>
+                                                    {{ i }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>&nbsp;
+                                        <a style="color: #f89406; display: inline-table" href="{{ path('ecommerce_panier_supprimer', {'id' : produit.id}) }}"><span class="fa fa-trash fa-2x" aria-hidden="true"></span></a>
+                                    </td>
+                                    <td class="span2">{{ (produit.prix * panier[produit.id])|tva(produit.tva.multiplicate) }} €</td>
+                                </tr>
+                            </form>
+                            {% set totalTTC = totalTTC + (produit.prix * panier[produit.id])|tva(produit.tva.multiplicate) %}
+                        {% endfor %}
+                        </tbody>
+                    </table><hr>
+                    {% if produits|length != 0 %}
+                    <div class="dl-horizontal pull-right" style="margin-right: 80px">
+                        <dl>
+                            <dt>Total :	</dt>
+                            <dd> {{ totalTTC }} €</dd>
+                        </dl>
+                    </div><br><br><br>
+                        <a href="{{ path('ecommerce_panier_livraison') }}" class="shopBtn btn-large pull-right">Continuer <span class="icon-arrow-right"></span></a>
+                    {% endif %}
+                        <a href="{{ path('ecommerce_produits_index') }}" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Retour aux Articles </a>
+
+
+                </div>
+            </div>
+        </div>
+       {% include '::modules/clients.html.twig' %}
+    </div>
+
+{% endblock %}

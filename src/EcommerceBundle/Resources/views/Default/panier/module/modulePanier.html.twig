@@ -1,0 +1,11 @@
+
+    <h2 style="padding-left: 6px">Mon Panier
+        {% if articles == 0 %}
+                <small class="pull-right"> Aucun Article </small>
+            {% elseif articles == 1 %}
+                <small class="pull-right"> 1 Article </small>
+            {% else %}
+                <small class="pull-right"> {{ articles }} Articles </small>
+        {% endif %}
+    </h2>
+

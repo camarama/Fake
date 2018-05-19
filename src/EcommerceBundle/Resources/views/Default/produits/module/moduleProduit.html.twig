@@ -1,0 +1,10 @@
+
+    <a href="{{ path('ecommerce_panier_panier') }}" class="btn btn-warning btn-mini">
+        {% if articles == 0 %}
+            Aucun article <span class="icon-shopping-cart"></span>
+        {% elseif articles == 1 %}
+            1 article <span class="icon-shopping-cart"></span>
+        {% else %}
+            {{ articles }} articles <span class="icon-shopping-cart"></span>
+        {% endif %}
+    </a>

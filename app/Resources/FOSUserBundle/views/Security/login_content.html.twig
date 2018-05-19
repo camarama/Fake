@@ -1,0 +1,54 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="row">
+    <div id="sidebar" class="span3">
+        {% include '::modules/navigation.html.twig' %}
+
+        {% include '::modules/promo.html.twig' %}
+
+        {% include '::modules/possibilite_paiements.html.twig' %}
+    </div>
+    <div class="span9">
+        <ul class="breadcrumb">
+            <li><a href="{{ path('ecommerce_produits_index') }}">Home</a> <span class="divider">/</span></li>
+            <li class="active">Connexion</li>
+        </ul>
+        <h3> Connexion</h3>
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <hr class="soft"/>
+        <div class="row">
+            <div class="span4">
+                <div class="well">
+                    <h3>Pas encore de compte ?</h3><br/>
+                    Créez votre compte Fakè Design et rejoignez le club gratuitement.<br/><br/><br/>
+                    <a class="" href="{{ path('fos_user_registration_register') }}"><span class="icon-edit"></span> Créez votre compte </a>
+                </div>
+            </div>
+            <div class="span1"> &nbsp;</div>
+            <div class="span4">
+                <div class="well">
+                    <h5>DEJA UN COMPTE ?</h5>
+                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                        {% if csrf_token %}
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        {% endif %}
+
+                        <label for="username">{{ 'security.login.username'|trans }}</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+                        <label for="password">{{ 'security.login.password'|trans }}</label>
+                        <input type="password" id="password" name="_password" required="required" />
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <button type="submit" class="shopBtn" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}">Connexion</button> <a href="{{ path('fos_user_resetting_request') }}">Forget password?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include '::modules/clients.html.twig' %}
